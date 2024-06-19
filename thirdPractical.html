@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Практическая работа 3</title>
+
+        <style>
+            body {
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            h2 {
+                margin-bottom: 10px;
+            }
+            #containerMain {
+                width: 650px;
+                padding: 25px;
+                margin: 25px;
+                display: flex;
+                flex-direction: column;
+                border: 2px solid black
+            }
+            #containerSecond {
+                width: 250px;
+                padding: 25px;
+                margin: 25px;
+                display: flex;
+                flex-direction: column;
+                border: 2px solid green
+            }
+            .btn {
+                padding: 5px 5px;
+                margin-top: 9px;
+                width: 130px;
+                background-color: darkorange;
+                color: black;
+                cursor: pointer;
+                transition: 0.45s;
+            }
+            .btn:hover {
+                background: orange;
+                color: white;
+            }
+            .dark {
+                background-color: black;
+                color: white;
+                }
+        
+            .light {
+                background-color: white;
+                color: black;
+            }
+        </style>
+        </head>
+        
+        <body>
+            <div onclick="greeting()" class="btn">Представьтесь</div>
+            <script>
+                function greeting(){
+                    let  userName = localStorage.getItem("userName");
+        
+                    if (userName){
+                        alert(`Ваше имя: ${userName}`);
+                    }
+                    else{
+                        userName = prompt("Представьтесь")
+        
+                        if (userName !== null && userName !== ""){
+                            localStorage.setItem("userName", userName)
+                        }
+                        else{
+                            greeting();
+                        }
+                    }  
+                }
+            </script>
+        
+            <div onclick="executeDemo1()" class="btn">Демо 1</div>
+            <script>
+                function executeDemo1(){
+        
+                    let arr1 = [];
+                    let arr2 = new Array();
+                    let arr3 = Array.from("Hello");
+                        
+                    alert(
+                        `${JSON.stringify(arr1)}, ${JSON.stringify(arr2)}, ${JSON.stringify(arr3)}`
+                    );
+                }
+            </script>
+        
+            <div onclick="executeDemo2()" class="btn">Демо 2</div>
+        
+            <script>
+                function executeDemo2(){
+                    let arr = [1, 2, 3];
+        
+                    for(let i = 0; i < arr.length; i++){
+                        alert(arr[i])
+                    }
+                }
+            </script>
+        
+            <div id="containerMain">
+                <h1>Тест по JavaScript</h1>
+                <div id="questions"></div>
+                <div onclick="checkAnswers()" class="btn">Проверить ответы</div>
+                <div id="results"></div>
+            </div>
+        
+            <script>
+                
+                const questions = [
+                    {
+                        question: "Какой оператор используется для проверки равенства?",
+                        options: ["=", ">", "===", "==", "<"],
+                        correctAnswer: "==="
+                    },
+                    {
+                        question: "Какой оператор используется для проверки равенства?",
+                        options: ["*", "===", "/", "?", "|"],
+                        correctAnswer: "==="
+                    },
+                    {
+                        question: "Какой оператор используется для проверки равенства?",
+                        options: ["city", "===", "%", "!", "<"],
+                        correctAnswer: "==="
+                    },
+                    {
+                        question: "Какой оператор используется для проверки равенства?",
+                        options: ["!===", "data", "===", "ez", "big"],
+                        correctAnswer: "==="
+                    },
+                    {
+                        question: "Какой оператор используется для проверки равенства?",
+                        options: ["=", "==", "===", "!=", "<="],
+                        correctAnswer: "==="
+                    },
+                    {
+                        question: "Какой оператор используется для проверки равенства?",
+                        options: ["*cout<<", "correct", "answer", "->", "==="],
+                        correctAnswer: "==="
+                    },
+                    {
+                        question: "Какой оператор используется для проверки равенства?",
+                        options: ["**arr", "[]", "===", "=new", "int[size]"],
+                        correctAnswer: "==="
+                    },
+                    {
+                        question: "Какой оператор используется для проверки равенства?",
+                        options: ["**arr[]", ")(", "===", "!!", "%%"],
+                        correctAnswer: "==="
+                    },
+                    {
+                        question: "Какой оператор используется для проверки равенства?",
+                        options: ["ravno", "ravno ravno", "===", "ravno ravno ravno", "ne ravno"],
+                        correctAnswer: "==="
+                    },
+                ];
+         
+                function createQuestions() {
+                    const questionsDiv = document.getElementById('questions');
+                    questions.forEach((question, index) => {
+                        const questionContainer = document.createElement('div');
+                        questionContainer.classList.add('question');
+                        questionContainer.innerHTML = `
+                            <h2>Вопрос ${index + 1}:</h2>
+                            <p>${question.question}</p>
+                            <div class="options">
+                                ${question.options.map(option => `
+                                    <div class="answer">
+                                        <input type="radio" name="question${index}" value="${option}">
+                                        <label for="question${index}">${option}</label>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                        questionsDiv.appendChild(questionContainer);
+                    });
+                }
+        
+                function checkAnswers() {
+                    let score = 0;
+                    const resultsDiv = document.getElementById('results');
+                    resultsDiv.innerHTML = '<h2>Результаты:</h2>';
+                    const userAnswers = [];
+        
+                    questions.forEach((question, index) => {
+                        const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                        const userAnswer = selectedOption ? selectedOption.value : null;
+                        userAnswers.push(userAnswer);
+        
+                        const answerResult = document.createElement('p');
+                        answerResult.textContent = `${index + 1}. ${question.question} - ${userAnswer === question.correctAnswer ? 'Верно' : 'Неверно'}`;
+                        resultsDiv.appendChild(answerResult);
+        
+                        if (userAnswer === question.correctAnswer) {
+                            score++;
+                        }
+                    });
+        
+                    const finalResult = document.createElement('p');
+                    finalResult.textContent = `Ваш результат: ${score} из ${questions.length}`;
+                    resultsDiv.appendChild(finalResult);
+        
+                    
+                    const answersList = document.createElement('ul');
+                    userAnswers.forEach((answer, index) => {
+                        const answerItem = document.createElement('li');
+                        answerItem.textContent = `${index + 1}. ${questions[index].question} - ваш ответ: ${answer} - ${answer === questions[index].correctAnswer ? 'Верно' : 'Неверно'}`;
+                        answersList.appendChild(answerItem);
+                    });
+                }
+                createQuestions();
+            </script>
+        
+            <div id="containerMain">
+                Тема
+                <div>
+                    <input 
+                        type="radio" 
+                        name="theme" 
+                        id="light"
+                        value="light" 
+                        onclick="toggleTheme(this)"
+                    />
+                    <label for="light">Светлая</label>
+                </div>
+                <div>
+                    <input 
+                        type="radio" 
+                        name="theme" 
+                        id="dark"
+                        value="dark" 
+                        onclick="toggleTheme(this)"
+                    />
+                    <label for="light">Темная</label>
+                </div>
+                
+            <script>
+                function toggleTheme(node){
+                    const theme = node.value;
+        
+                    if(theme === "light"){
+                        document.body.classList.remove("dark");
+                        document.body.classList.add("light");
+                    } else{
+                        document.body.classList.remove("light");
+                        document.body.classList.add("dark");
+                    }
+        
+                }
+            </script>   
+            
+        </body>
+        </html>

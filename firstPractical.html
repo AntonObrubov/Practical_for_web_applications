@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Практическая работа 1</title>
+
+        <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h2 {
+            margin-bottom: 10px;
+        }
+        #containerMain {
+            width: 650px;
+            padding: 25px;
+            margin: 25px;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid black;
+        }
+        .btn {
+            padding: 5px 5px;
+            margin-top: 9px;
+            width: 72px;
+            background-color: darkorange;
+            color: black;
+            cursor: pointer;
+            transition: 0.45s;
+        }
+        .btn:hover {
+            background: orange;
+            color: white;
+        }
+        </style>
+
+    </head>
+
+    <body>
+        
+        <div id="containerMain">
+            <h2>Задача: 0</h2>
+            <p>Введите строку "Hello World":</p>
+            <input id="userInput">
+            <div onclick="task0()" class="btn">Проверить</div>
+            <script>
+                function task0(){
+                    
+                    let userInputValue = document.getElementById("userInput").value;
+
+                    if (userInputValue == "Hello World"){
+                        alert("Успешно");
+                    } else{
+                        alert("Неверное значение!");
+                    }
+                }
+            </script>
+        </div>
+
+        <div id="containerMain">
+            <h2>Задача: 1</h2>
+            <label for="userInput1">Введите ваш знак зодиака:</label>
+            <input type="text" id="userInput1">
+            <div onclick="task1()" class="btn">Проверить</div>
+            <script>
+            function task1() {
+                const userInput1 = document.getElementById('userInput1').value.toLowerCase();
+
+                switch (userInput1) {
+                    case 'телец':
+                        alert("Результат: Вы Телец!");
+                        break;
+                    case 'овен':
+                        alert("Результат: Вы Овен!");
+                        break;
+                    case 'близнецы':
+                        alert("Результат: Вы Близнецы!");
+                        break;
+                    case 'стрелец':
+                        alert("Результат: Вы Стрелец!");
+                        break;
+                    case 'козерог':
+                        alert("Результат: Вы Козерог!");
+                        break;
+                    case 'водолей':
+                        alert("Результат: Вы Водолей!");
+                        break;
+                    case 'рак':
+                        alert("Результат: Вы Рак!");
+                        break;
+                    case 'лев':
+                        alert("Результат: Вы Лев!");
+                        break;
+                    case 'дева':
+                        alert("Результат: Вы Дева!");
+                        break;
+                    case 'весы':
+                        alert("Результат: Вы Весы!");
+                        break;
+                    case 'скорпион':
+                        alert("Результат: Вы Скорпион!");
+                        break;
+                    case 'рыбы':
+                        alert("Результат: Вы Рыбы!");
+                        break;
+                    default:
+                        alert("Неверный знак зодиака!");
+                }
+            }
+            </script>
+            </div>
+
+            <div id="containerMain">
+                <h2>Задача: 2</h2>
+                <p>Результат цикла for от 1 до 40:</p>
+                <ul id="numFor"></ul>
+                <p>Результат цикла while от 1 до 40:</p>
+                <ul id="numWhile"></ul>
+                <p>Результат цикла do while от 1 до 40:</p>
+                <ul id="numDoWhile"></ul>
+                <script>
+                    let numForList = document.getElementById('numFor');
+                    for (let i = 1; i <= 40; i++) {
+                        let li = document.createElement('li');
+                        li.textContent = i;
+                        numForList.appendChild(li);
+                    }
+                    let numWhileList = document.getElementById('numWhile');
+                    let i = 1;
+                    while (i <= 40) {
+                        let li = document.createElement('li');
+                        li.textContent = i;
+                        numWhileList.appendChild(li);
+                        i++;
+                    }
+                    let nnumDoWhile = document.getElementById('numDoWhile');
+                    i = 1;
+                    do {
+                        let li = document.createElement('li');
+                        li.textContent = i;
+                        numDoWhile.appendChild(li);
+                        i++;
+                    } while (i <= 40);
+                </script>
+            </div>
+
+            <div id="containerMain">
+
+                <h2>Задача: 3</h2>
+                <p>Кнопка пуск: вкл бесконечное сообщение<br>Кнопка стоп: выкл бесконечное сообщение</p>
+                <div class="btn" id="startButton">пуск</div>
+                <div class="btn" id="stopButton">стоп</div>
+
+                <p id="messageDiv">Бесконечное сообщение</p>
+
+                <script>
+
+                    let messageInterval;
+
+                    document.getElementById('startButton').addEventListener('click', function() {
+                    if (!messageInterval) {
+                         messageInterval = setInterval(function() {
+                         document.getElementById('messageDiv').innerText += ' Бесконечное сообщение';
+                        }, 1000);
+                    }
+                    });
+
+                    document.getElementById('stopButton').addEventListener('click', function() {
+                    clearInterval(messageInterval);
+                    messageInterval = null;
+                    });
+            </script>
+            </div>
+
+            <div id="containerMain">
+                <h2>Задача 4: </h2>
+                <p>Введите число больше 5:</p>
+                <input type="text" id="numberInput">
+                <div onclick="task4()" class="btn" id="startButton">Проверить</div>
+                <script>
+                    function task4() {
+                        let number = parseInt(document.getElementById('numberInput').value);
+        
+                        if (isNaN(number)) {
+                            alert("Введите число!");
+                        } else if (number > 5) {
+                            alert("Вы ввели число больше 5");
+                        } else if (number < 5) {
+                            alert("Введенное число меньше 5");
+                        } else {
+                            alert("Введенное число равно 5");
+                        }
+                    }
+                </script>
+            </div>
+
+            <div id="containerMain">
+                <h2>Задача 6:</h2>
+                <p>Нечетные числа от 1 до 7, пропустив 5</p>
+                <ul id="printNum"></ul>
+                <script>
+                    let printNumList = document.getElementById('printNum');
+                    for (let i = 1; i <= 7; i++) {
+                        if (i === 5) {
+                            continue; 
+                        }
+                        if (i % 2 !== 0) {
+                            let li = document.createElement('li');
+                            li.textContent = i;
+                            printNumList.appendChild(li);
+                        }
+                    }
+                </script>
+            </div>
+    </body>
+</html>
